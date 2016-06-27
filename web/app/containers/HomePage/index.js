@@ -11,11 +11,20 @@
 
 import React from 'react';
 
+import jQuery from 'jquery';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
+import 'font-awesome/css/font-awesome.min.css';
+import {Grid, Row, Col, Button, Badge } from 'react-bootstrap';
+import FontAwesome from 'react-fontawesome';
+
 export default class HomePage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   render() {
     return (
-      <h1>This is the Homepage!</h1>
+        <div>
+            Choose one of the icons on the left.
+        </div>
     );
   }
 }
