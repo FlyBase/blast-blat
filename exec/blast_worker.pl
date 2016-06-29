@@ -2,6 +2,7 @@
 
 use strict;
 use warnings;
+use autodie;
 
 use 5.010;
 
@@ -9,6 +10,7 @@ use AnyEvent;
 use AnyEvent::Beanstalk::Worker;
 use Data::Dumper;
 use TryCatch;
+use Capture::Tiny ':all';
 
 use Bio::Tools::Run::StandAloneBlastPlus;
 
@@ -46,19 +48,22 @@ $worker->on(run_blast => sub {
             -DB_NAME => '/indices/7227/scaffold'
         );
 
+        open(my $err_fh, '>', $blast_job->{output} . '.err');
         say STDERR "Running BLAST";
         try {
             my $query = $blast_job->{query};
             my $result = $fac->run(
                 -method => $blast_job->{tool},
                 -query => $blast_job->{query},
-                -outfile => $blast_job->{output}
+                -outfile => $blast_job->{output},
+                -outformat => 11
             );
         }
         catch ($err) {
             $self->finish(delete => $job->id);
-            say STDERR "Failed to run BLAST job: " . $err;
+            say $err_fh "Failed to run BLAST job: " . $err;
         }
+        close($err_fh);
 
         
         #say STDERR "BLAST job failed." unless (defined $result);
@@ -73,7 +78,28 @@ $worker->on(process_results => sub {
         my $job  = shift;
         my $resp = shift // {};
 
+        my $blast_job = $job->decode;
+        my $input  = $blast_job->{output};
+        my $output = $blast_job->{output};
+        $output =~ s/\.\w+$/\.json/;
+        my $error = $output . '.err';
+        open(my $out_fh, '>', $output);
+        open(my $err_fh, '>', $error);
+
         say STDERR "Processing BLAST results.";
+        try {
+            my $cmd = "blast_formatter";
+            my @args = ();
+            push(@args,'-archive',$input,'-outfmt',0);
+            capture {
+                system($cmd, @args);
+            } stdout => $out_fh, stderr => $err_fh;
+        }
+        catch ($err) {
+            say $err_fh "Caught an error while running blast_formatter: $err";
+        }
+        close($out_fh);
+        close($err_fh);
 
         say STDERR "Processing finished.";
         return $self->finish(delete => $job->id);
