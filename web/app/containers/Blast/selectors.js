@@ -3,23 +3,41 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the blast state domain
  */
-const selectBlastDomain = () => state => state.get('blast');
+const selectBlast = () => (state) => state.get('blast');
 
 /**
  * Other specific selectors
  */
 
-
-/**
- * Default selector used by Blast
- */
-
-const selectBlast = () => createSelector(
-  selectBlastDomain(),
-  (substate) => substate.toJS()
+const selectBlastForApi = () => createSelector(
+  selectBlast(),
+  (blast) => (
+      {
+          query: [blast.get('sequence')],
+          db: [blast.get('database')],
+          tool: blast.get('tool')
+      }
+  )
 );
 
-export default selectBlast;
+const selectSequence = () => createSelector(
+  selectBlast(),
+  (blast) => blast.get('sequence')
+);
+
+const selectTool = () => createSelector(
+  selectBlast(),
+  (blast) => blast.get('tool')
+);
+
+const selectDatabase = () => createSelector(
+  selectBlast(),
+  (blast) => blast.get('database')
+);
+
 export {
-  selectBlastDomain,
+  selectSequence,
+  selectTool,
+  selectDatabase,
+  selectBlastForApi
 };

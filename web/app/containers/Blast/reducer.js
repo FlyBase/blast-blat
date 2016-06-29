@@ -5,19 +5,37 @@
  */
 
 import { fromJS } from 'immutable';
+
 import {
-  DEFAULT_ACTION,
+  CHANGE_SEQUENCE,
+  CHANGE_DATABASE,
+  CHANGE_TOOL,
+  SUBMIT,
+  SUBMIT_OK,
+  SUBMIT_ERR
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+    sequence: '',
+    database: 'scaffold',
+    tool: 'blastn'
+});
 
 function blastReducer(state = initialState, action) {
-  switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    switch (action.type) {
+    case CHANGE_SEQUENCE:
+        return state.set('sequence',action.payload);
+    case CHANGE_DATABASE:
+        return state.set('database',action.payload);
+    case CHANGE_TOOL:
+        return state.set('tool',action.payload);
+    case SUBMIT_OK:
+        return state;
+    case SUBMIT_ERR:
+        return state;
     default:
-      return state;
-  }
+        return state;
+    }
 }
 
 export default blastReducer;
