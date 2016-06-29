@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
         libsereal-encoder-perl \
         libdatetime-perl \
         libtrycatch-perl \
+        libpath-tiny-perl \
         cpanminus \
         gcc \
         make \
