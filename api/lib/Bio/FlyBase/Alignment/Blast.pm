@@ -84,13 +84,15 @@ post qr{/submit/(blastn|blastp|blastx|tblastn|tblastx)} => sub {
         close $fasta_fh;
 
         my $blast = {
-            tool  => $tool,
-            db    => $h->{db},
+            type    => 'BLAST',
+            started => DateTime->now->iso8601,
+            tool    => $tool,
+            db      => $h->{db},
             species => $h->{species},
-            query => $fasta->stringify,
-            args  => $h->{args},
-            evalue => $h->{evalue},
-            output => $blast_result->stringify
+            query   => $fasta->stringify,
+            args    => $h->{args},
+            evalue  => $h->{evalue},
+            output  => $blast_result->stringify
         };
 
         my $job = $bs->put({
@@ -128,7 +130,7 @@ any '/job/list' => sub {
 
     for my $id ( @ids ) {
         $resp->add_result({
-                status => 
+                status => 'status here',
                 jobid  => $id
             });
     }

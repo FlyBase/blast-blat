@@ -8,7 +8,7 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectMain, selectResults } from './selectors';
+import { selectResultCount } from './selectors';
 import styles from './styles.css';
 import {Grid, Row, Col } from 'react-bootstrap';
 import Sidebar from 'components/Sidebar';
@@ -18,7 +18,7 @@ export class Main extends React.Component { // eslint-disable-line react/prefer-
     return (
         <div>
              <Col md={2}>
-                 <Sidebar changeRoute={this.props.changeRoute} />
+                 <Sidebar changeRoute={this.props.changeRoute} resultCount={this.props.resultCount} />
              </Col>
              <Col md={10}>
                  {this.props.children}
@@ -30,10 +30,11 @@ export class Main extends React.Component { // eslint-disable-line react/prefer-
 
 Main.propTypes = {
     changeRoute: PropTypes.func.isRequired,
+    resultCount: PropTypes.number.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
-    main: selectMain()
+    resultCount: selectResultCount()
 });
 
 function mapDispatchToProps(dispatch) {

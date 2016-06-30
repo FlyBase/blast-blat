@@ -35,6 +35,8 @@ const selectDatabase = () => createSelector(
   (blast) => blast.get('database')
 );
 
+export default selectBlast;
+
 export {
   selectSequence,
   selectTool,

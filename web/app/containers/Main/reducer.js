@@ -3,11 +3,14 @@
  * Main reducer
  *
  */
-
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  DEFAULT_ACTION
 } from './constants';
+
+import {
+    SUBMIT_OK,
+} from '../Blast/constants';
 
 const initialState = fromJS({
     results: {
@@ -17,12 +20,16 @@ const initialState = fromJS({
 });
 
 function mainReducer(state = initialState, action) {
-  switch (action.type) {
+    console.debug("mainReducer called with");
+    console.debug(action.type);
+    switch (action.type) {
     case DEFAULT_ACTION:
-      return state;
+        return state;
+    case SUBMIT_OK:
+        return state.updateIn(['results', 'blast'], list => list.push(action.payload));
     default:
-      return state;
-  }
+        return state;
+    }
 }
 
 export default mainReducer;

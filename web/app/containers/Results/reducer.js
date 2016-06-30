@@ -12,12 +12,14 @@ import {
 const initialState = fromJS({});
 
 function resultsReducer(state = initialState, action) {
-  switch (action.type) {
+    console.debug("resultsReducer called with");
+    console.debug(action.type);
+    switch (action.type) {
     case DEFAULT_ACTION:
-      return state;
+        return state;
     default:
-      return state;
-  }
+        return state;
+    }
 }
 
 export default resultsReducer;

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import selectResults from './selectors';
+import { selectResults } from './selectors';
 import styles from './styles.css';
 
 export class Results extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -19,7 +19,9 @@ export class Results extends React.Component { // eslint-disable-line react/pref
   }
 }
 
-const mapStateToProps = selectResults();
+const mapStateToProps = createStructuredSelector({
+    resultCount: selectResultCount()
+});
 
 function mapDispatchToProps(dispatch) {
   return {

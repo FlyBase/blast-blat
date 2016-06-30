@@ -22,14 +22,12 @@ class Sidebar extends React.Component {
     }
 
     render() {
-        let count = 0;
-
         return (
             <div>
                 <Button bsSize="large" block onClick={e => this.handleClick('/blast')}>BLAST</Button>
                 <Button bsSize="large" block onClick={e => this.handleClick('/blat')}>BLAT</Button>
                 <Button bsSize="large" block onClick={e => this.handleClick('/results')}>
-                    <FontAwesome name="bar-chart" /> Results <Badge>{count}</Badge>
+                    <FontAwesome name="bar-chart" /> Results <Badge>{this.props.resultCount}</Badge>
                 </Button>
             </div>
         );
@@ -37,10 +35,12 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.defaultProps = {
+    resultCount: 0
 };
 
 Sidebar.propTypes = {
-    changeRoute: PropTypes.func.isRequired
+    changeRoute: PropTypes.func.isRequired,
+    resultCount: PropTypes.number
 };
 
 export default Sidebar;

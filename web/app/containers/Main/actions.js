@@ -5,7 +5,7 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  DEFAULT_ACTION
 } from './constants';
 
 export function defaultAction() {
@@ -13,3 +13,4 @@ export function defaultAction() {
     type: DEFAULT_ACTION,
   };
 }
+

@@ -4,4 +4,5 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/Main/DEFAULT_ACTION';
+export const DEFAULT_ACTION   = 'app/Main/DEFAULT_ACTION';
+

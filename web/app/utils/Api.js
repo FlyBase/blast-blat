@@ -18,9 +18,6 @@ function parseJSON(response) {
 }
 
 export default function request(url, body) {
-    console.debug("BLAST API called.");
-    console.debug(url);
-    console.debug(body);
     return fetch(url, {
         method: 'POST',
         headers: {

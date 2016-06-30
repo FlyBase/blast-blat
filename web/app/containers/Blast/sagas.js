@@ -15,7 +15,9 @@ export function* submitBlast() {
     const resp = yield call(request, url, blast);
 
     if (!resp.error) {
-        yield put(blastSubmitted(resp.data.resultset.result));
+        blast.jobid = resp.data.resultset.result[0].jobid;
+        blast.status = "pending";
+        yield put(blastSubmitted(blast));
     }
     else {
         yield put(blastSumissionError(resp.error));

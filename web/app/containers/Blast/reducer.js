@@ -22,6 +22,8 @@ const initialState = fromJS({
 });
 
 function blastReducer(state = initialState, action) {
+    console.debug("blastReducer called with:");
+    console.debug(action.type);
     switch (action.type) {
     case CHANGE_SEQUENCE:
         return state.set('sequence',action.payload);

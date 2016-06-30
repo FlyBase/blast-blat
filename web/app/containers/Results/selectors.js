@@ -6,20 +6,20 @@ import { createSelector } from 'reselect';
 const selectResultsDomain = () => state => state.get('results');
 
 /**
- * Other specific selectors
- */
-
-
-/**
  * Default selector used by Results
  */
 
 const selectResults = () => createSelector(
-  selectResultsDomain(),
-  (substate) => substate.toJS()
+    selectResultsDomain(),
+    (results) => results.toJS()
 );
 
+/**
+ * Other specific selectors
+ */
+
 export default selectResults;
+
 export {
-  selectResultsDomain,
+    selectResultsDomain,
 };
