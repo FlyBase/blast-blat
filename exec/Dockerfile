@@ -12,15 +12,20 @@ RUN apt-get update && apt-get install -y \
         beanstalkd \
         libbio-perl-perl \
         libtrycatch-perl \
-        libcapture-tiny-perl
+        libsereal-decoder-perl \
+        libsereal-encoder-perl \
+        libcapture-tiny-perl \
+        libredis-perl
 
-RUN cpanm AnyEvent::Beanstalk AnyEvent::Beanstalk::Worker
-
+RUN cpanm Redis::JobQueue
 RUN curl -s -o ncbi-blast.tar.gz ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/ncbi-blast-2.4.0+-x64-linux.tar.gz
 RUN tar zxvf ncbi-blast.tar.gz
 RUN mv ncbi-blast-2.4.0+/bin/* /usr/bin/
 
-COPY docker-entrypoint.sh blast_worker.pl /
+RUN mkdir -p /app
+
+COPY docker-entrypoint.sh /
+COPY . /app
 
 RUN mkdir -p /data
 VOLUME /data

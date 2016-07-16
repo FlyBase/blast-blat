@@ -2,8 +2,6 @@ FROM debian:jessie
 
 MAINTAINER Josh Goodman <jogoodma@indiana.edu>
 
-#postgresql-client \
-#libdbd-pg-perl \
 RUN apt-get update && apt-get install -y \
         curl \
         perl \
@@ -17,13 +15,14 @@ RUN apt-get update && apt-get install -y \
         libdatetime-perl \
         libtrycatch-perl \
         libpath-tiny-perl \
+        libredis-perl \
         cpanminus \
         gcc \
         make \
         gzip \
         pigz
 
-RUN cpanm AnyEvent::Beanstalk JSON::Schema
+RUN cpanm JSON::Schema Redis::JobQueue
 RUN cpanm -n Dancer2::Session::Sereal
 
 RUN mkdir -p /opt

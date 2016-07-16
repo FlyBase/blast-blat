@@ -52,6 +52,6 @@ engines:
   session:
     Sereal:
       cookie_name: "blast_blat.session"
-#      is_secure: 1
-#      is_http_only: 1
+      is_secure: 0
+      is_http_only: 0
 

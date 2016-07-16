@@ -1,14 +1,11 @@
 version: '2'
 services:
-    #db:
-    #    build: db
-    #    restart: always
-    #    env_file: 
-    #        - ./common.env
-    #        - ./db/secrets.env
-    #    volumes:
-    #        - pg_data:/var/lib/postgresql/data
-
+    db:
+        image: redis
+        command: redis-server --appendonly yes
+        restart: always
+        volumes:
+            - redis_data:/data
     proxy:
         build: proxy
         restart: always
@@ -21,7 +18,7 @@ services:
             - jbrowse
             - web
         ports:
-            - 7000:80
+            - 7001:80
         volumes:
             - ./proxy/nginx/nginx.conf:/etc/nginx/nginx.conf
             - ./proxy/nginx/conf.d:/etc/nginx/conf.d
@@ -43,7 +40,7 @@ services:
         restart: always
         env_file:
             - ./common.env
-              #- ./db/secrets.env
+            #- ./db/secrets.env
         volumes:
             - ./api:/app
             - jbrowse_data:/jbrowse
@@ -53,21 +50,25 @@ services:
 
         depends_on:
             - exec
+            - db
         links:
             - exec
+            - db
     exec:
         build: exec
         env_file:
             - ./common.env
+        depends_on:
+            - db
+        links:
+            - db
         volumes:
-            - ./exec/blast_worker.pl:/blast_worker.pl
-            - beanstalkd:/data
+            - ./exec:/app
             - results:/results
             - ./data/indices:/indices
             - ./data/fasta:/fasta
 
 volumes:
-    #pg_data:
     jbrowse_data:
     results:
-    beanstalkd:
+    redis_data:
