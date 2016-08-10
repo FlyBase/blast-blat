@@ -8,7 +8,7 @@ import { loadResults } from 'containers/App/actions';
 
 import { selectBlastForApi } from 'containers/Blast/selectors';
 
-import request from 'utils/Api'
+import { request } from 'utils/Api'
 
 export function* submitBlast() {
     const blast = yield select(selectBlastForApi());

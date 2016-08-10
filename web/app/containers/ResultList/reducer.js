@@ -1,6 +1,6 @@
 /*
  *
- * Results reducer
+ * ResultList reducer
  *
  */
 
@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({});
 
-function resultsReducer(state = initialState, action) {
+function resultListReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +20,4 @@ function resultsReducer(state = initialState, action) {
   }
 }
 
-export default resultsReducer;
+export default resultListReducer;

@@ -1,6 +1,6 @@
 /*
  *
- * Results actions
+ * ResultList actions
  *
  */
 
@@ -13,3 +13,4 @@ export function defaultAction() {
     type: DEFAULT_ACTION,
   };
 }
+

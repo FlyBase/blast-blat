@@ -17,7 +17,7 @@ function parseJSON(response) {
   return response.json();
 }
 
-export default function request(url, body) {
+export function request(url, body) {
     return fetch(url, {
         method: 'POST',
         headers: {

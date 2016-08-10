@@ -1,7 +1,7 @@
 /*
  *
- * Results constants
+ * ResultList constants
  *
  */
 
-export const DEFAULT_ACTION = 'app/Results/DEFAULT_ACTION';
+export const DEFAULT_ACTION = 'app/ResultList/DEFAULT_ACTION';
