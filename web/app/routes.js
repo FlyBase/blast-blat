@@ -73,15 +73,51 @@ export default function createRoutes(store) {
 
         importModules.catch(errorLoading);
       },
-    },   {
+    }, 
+       {
       path: '/results',
-      getComponent(location, cb) {
-        System.import('components/Results')
-          .then(loadModule(cb))
-          .catch(errorLoading);
+      name: 'results',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/ResultList/reducer'),
+          System.import('containers/ResultList/sagas'),
+          System.import('containers/ResultList'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('results', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    },    {
+      path: '/results/:jobid',
+      name: 'resultItem',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/ResultItem/reducer'),
+          System.import('containers/ResultItem/sagas'),
+          System.import('containers/ResultItem'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('resultItem', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
       },
     }, {
       path: '*',
+
+
       name: 'notfound',
       getComponent(nextState, cb) {
         System.import('containers/NotFoundPage')

@@ -24,7 +24,38 @@ export default function request(url, body) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+        credentials: 'same-origin',
         body: JSON.stringify(body)
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then( (data) =>  ( {data} ))
+    .catch( (err) => ( {err} ));
+}
+
+export function fetchResults() {
+    return fetch('/api/blast/job/list', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then( (data) =>  ( {data} ))
+    .catch( (err) => ( {err} ));
+}
+
+export function deleteResult(id) {
+    return fetch('/api/blast/job/delete/' + id, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
     })
     .then(checkStatus)
     .then(parseJSON)

@@ -1,8 +1,10 @@
+import { takeLatest } from 'redux-saga';
 import { take, call, put, select, fork } from 'redux-saga/effects';
 
-import { LOCATION_CHANGE } from 'react-router-redux';
-import { SUBMIT, SUBMIT_OK, SUBMIT_ERR } from 'containers/Blast/constants';
-import { blastSubmitted, blastSubmissionError } from 'containers/Blast/actions';
+import { push } from 'react-router-redux';
+import { SUBMIT } from 'containers/Blast/constants';
+import { blastSubmissionOk, blastSubmissionError } from 'containers/Blast/actions';
+import { loadResults } from 'containers/App/actions';
 
 import { selectBlastForApi } from 'containers/Blast/selectors';
 
@@ -17,27 +19,20 @@ export function* submitBlast() {
     if (!resp.error) {
         blast.jobid = resp.data.resultset.result[0].jobid;
         blast.status = "pending";
-        yield put(blastSubmitted(blast));
+        yield put(blastSubmissionOk(blast)),
+        yield put(loadResults());
+        yield put(push('/results/' + blast.jobid));
     }
     else {
         yield put(blastSumissionError(resp.error));
     }
 }
 
-export function* getBlastWatcher() {
-    while (yield take(SUBMIT)) {
-        yield call(submitBlast);
-    }
-}
-
-/**
- * Root saga manages watcher lifecycle
- */
-export function* rootSaga() {
-    yield fork(getBlastWatcher);
+export function* blastSaga() {
+    yield* takeLatest(SUBMIT, submitBlast);
 }
 
 export default [
-    rootSaga,
+    blastSaga
 ];
 

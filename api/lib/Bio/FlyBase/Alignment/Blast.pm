@@ -59,6 +59,7 @@ post qr{/submit/(blastn|blastp|blastx|tblastn|tblastx)} => sub {
                     required => 1,
                     items => { type => 'string'}
                 },
+                name => { type => 'string'},
                 tool => { type => 'string' },
                 species => { type => 'number'},
                 args => { type => 'object' },
@@ -102,6 +103,7 @@ post qr{/submit/(blastn|blastp|blastx|tblastn|tblastx)} => sub {
                 queue   => 'blast.submit',
                 expire => 0,
                 workload => {
+                    name    => $h->{name} // 'N/A',
                     tool    => $tool,
                     db      => $h->{db},
                     species => $h->{species},
@@ -141,10 +143,17 @@ any '/job/list' => sub {
     my $resp = Bio::FlyBase::Api::Response->new( api_version => '1.0', query_url => (request->uri_base . request->uri));
 
     for my $id ( keys %{$jobids} ) {
-        my $status = $jq->get_job_data( $id, 'status' );
+        my $data = $jq->get_job_data($id);
+        next unless $data;
         $resp->add_result({
-                status => $status,
-                jobid  => $id
+                status => $data->{status},
+                jobid  => $id,
+                created => $data->{created},
+                started => $data->{started},
+                completed => $data->{completed},
+                name   => $data->{workload}{name},
+                tool => $data->{workload}{tool},
+                db => $data->{workload}{db}
             });
     }
 
@@ -213,5 +222,6 @@ any qr{.*} => sub {
     status 'not_found';
     return { error => "Service not found" };
 };
+
 
 1;

@@ -13,34 +13,41 @@
 
 import React from 'react';
 
-import jQuery from 'jquery';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import 'font-awesome/css/font-awesome.min.css';
+// Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
+import 'sanitize.css/lib/sanitize.css';
+import 'bootstrap-css-only/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.css';
+import 'material-design-icons/iconfont/material-icons.css';
+
 import {Grid, Row, Col } from 'react-bootstrap';
 
-import Main from 'containers/Main';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Sidebar from 'containers/Sidebar';
 
-export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
-  static propTypes = {
-    children: React.PropTypes.node,
-  };
-
-  render() {
+function App(props) {
     return (
-        <Grid fluid={true}>
-            <Row> 
-                <Col xs={12} className="text-center">
-                    <h1>Sequence Alignment Tools</h1>
-                </Col>
-            </Row>
-            <Row>
-                <Main>
-                    {this.props.children}
-                </Main>
-            </Row>
-        </Grid>
+        <MuiThemeProvider>
+            <Grid fluid={true}>
+                <Row> 
+                    <Col xs={12} className="text-center">
+                        <h1>Sequence Alignment Tools</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={2}>
+                        <Sidebar />
+                    </Col>
+                    <Col md={10}>
+                        {React.Children.toArray(props.children)}
+                    </Col>
+                </Row>
+            </Grid>
+        </MuiThemeProvider>
     );
-  }
 }
+
+App.propTypes = {
+    children: React.PropTypes.node,
+};
+
+export default App;

@@ -38,8 +38,7 @@ export function submitBlast() {
     return { type: SUBMIT };
 }
 
-export function blastSubmitted(job) {
-    console.debug(job);
+export function blastSubmissionOk(job) {
     return { type: SUBMIT_OK, payload: job};
 }
 

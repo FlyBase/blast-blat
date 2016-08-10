@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
         gcc \
         make \
         gzip \
-        pigz
+        pigz 
 
 RUN cpanm JSON::Schema Redis::JobQueue
 RUN cpanm -n Dancer2::Session::Sereal
