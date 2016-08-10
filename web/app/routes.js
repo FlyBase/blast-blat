@@ -99,9 +99,9 @@ export default function createRoutes(store) {
       name: 'resultItem',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/ResultItem/reducer'),
-          System.import('containers/ResultItem/sagas'),
-          System.import('containers/ResultItem'),
+          System.import('containers/ResultReport/reducer'),
+          System.import('containers/ResultReport/sagas'),
+          System.import('containers/ResultReport'),
         ]);
 
         const renderRoute = loadModule(cb);

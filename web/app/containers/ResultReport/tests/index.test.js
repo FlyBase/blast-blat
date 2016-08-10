@@ -1,9 +1,9 @@
-import ResultItem from '../index';
+import ResultReport from '../index';
 
 import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
 
-describe('<ResultItem />', () => {
+describe('<ResultReport />', () => {
 
 });

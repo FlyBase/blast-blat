@@ -1,14 +1,14 @@
 /*
  *
- * ResultItem
+ * ResultReport
  *
  */
 
 import React, {PropTypes, Component} from 'react';
 import { connect } from 'react-redux';
-import selectResultItem from './selectors';
+import selectResultReport from './selectors';
 
-export class ResultItem extends Component { // eslint-disable-line react/prefer-stateless-function
+export class ResultReport extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
       const { jobid } = this.props.params;
 
@@ -20,13 +20,13 @@ export class ResultItem extends Component { // eslint-disable-line react/prefer-
   }
 }
 
-ResultItem.propTypes = {
+ResultReport.propTypes = {
     params: PropTypes.shape({
         params: PropTypes.string
     }).isRequired
 }
 
-const mapStateToProps = selectResultItem();
+const mapStateToProps = selectResultReport();
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -34,4 +34,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResultItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ResultReport);

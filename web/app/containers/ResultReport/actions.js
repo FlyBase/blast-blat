@@ -1,6 +1,6 @@
 /*
  *
- * ResultItem actions
+ * ResultReport actions
  *
  */
 

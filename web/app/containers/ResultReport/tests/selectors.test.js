@@ -1,11 +1,11 @@
 import {
-  selectResultItem,
+  selectResultReport,
 } from '../selectors';
 import { fromJS } from 'immutable';
 import expect from 'expect';
 
-const selector = selectResultItem();
+const selector = selectResultReport();
 
-describe('selectResultItem', () => {
+describe('selectResultReport', () => {
 
 });

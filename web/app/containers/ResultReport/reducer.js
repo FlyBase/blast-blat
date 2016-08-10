@@ -1,6 +1,6 @@
 /*
  *
- * ResultItem reducer
+ * ResultReport reducer
  *
  */
 
