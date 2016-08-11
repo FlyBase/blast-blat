@@ -17,9 +17,10 @@ export function defaultAction() {
   };
 }
 
-export function fetchReport() {
+export function fetchReport(jobid) {
     return {
         type: FETCH_REPORT,
+        payload: jobid
     };
 }
 

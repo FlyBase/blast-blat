@@ -19,7 +19,7 @@ export function* submitBlast() {
     if (!resp.error) {
         blast.jobid = resp.data.resultset.result[0].jobid;
         blast.status = "pending";
-        yield put(blastSubmissionOk(blast)),
+        yield put(blastSubmissionOk(blast));
         yield put(loadResults());
         yield put(push('/results/' + blast.jobid));
     }

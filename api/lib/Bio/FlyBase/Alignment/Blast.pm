@@ -170,12 +170,19 @@ any '/job/results/:jobid' => sub {
 
     my $jobids = session('jobids');
     if (exists $jobids->{$jobid}) {
-        my $job_data = $jq->get_job_data($jobid,'workload');
-        my $file = path($job_data->{output});
-        my $data = path($file)->slurp_utf8;
+        my $data = $jq->get_job_data($jobid);
+        my $file = path($data->{workload}{output});
+        my $blast_report = path($file)->slurp_utf8;
         $resp->add_result({
-                jobid => $jobid,
-                blast => $data
+                status    => $data->{status},
+                jobid     => $jobid,
+                created   => $data->{created},
+                started   => $data->{started},
+                completed => $data->{completed},
+                name      => $data->{workload}{name},
+                tool      => $data->{workload}{tool},
+                db        => $data->{workload}{db},
+                blast     => $blast_report
             });
     }
 
