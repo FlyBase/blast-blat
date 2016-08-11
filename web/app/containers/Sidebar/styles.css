@@ -2,6 +2,10 @@
 
 }
 
+.button {
+    -webkit-appearance: inherit;
+}
+
 .resultcount {
     margin-left: 10px;
 }

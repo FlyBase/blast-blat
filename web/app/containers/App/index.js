@@ -13,10 +13,7 @@
 
 import React from 'react';
 
-// Import the CSS reset, which HtmlWebpackPlugin transfers to the build folder
-import 'sanitize.css/lib/sanitize.css';
 import 'bootstrap-css-only/css/bootstrap.css';
-//import 'font-awesome/css/font-awesome.css';
 import 'material-design-icons/iconfont/material-icons.css';
 
 import {Grid, Row, Col } from 'react-bootstrap';

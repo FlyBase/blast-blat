@@ -27,18 +27,24 @@ export class Sidebar extends Component { // eslint-disable-line react/prefer-sta
     }
 
     render() {
+        // Reset the reset (sanitize.css) module, which makes the material-ui
+        // ListItem components look like buttons.
+        const btnStyleReset = {
+            'WebkitAppearance': 'inherit'
+        };
         return (
             <List>
                 <Link to='/blast'> 
-                    <ListItem insetChildren primaryText="BLAST" />
+                    <ListItem style={btnStyleReset} insetChildren primaryText="BLAST" />
                 </Link>
                 <Divider />
                 <Link to="/blat">
-                    <ListItem insetChildren primaryText="BLAT"  />
+                    <ListItem style={btnStyleReset} insetChildren primaryText="BLAT"  />
                 </Link>
                 <Divider />
                 <Link to="/results">
                     <ListItem 
+                        style={btnStyleReset} 
                         leftIcon={<FontIcon className="material-icons">assessment</FontIcon>}>
                         Results
                         <Badge style={{backgroundColor: cyan}} className={styles.resultcount}>{this.props.resultCount}</Badge>
