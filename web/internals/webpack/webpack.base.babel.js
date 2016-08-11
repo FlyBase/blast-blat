@@ -54,7 +54,6 @@ module.exports = (options) => ({
   plugins: options.plugins.concat([
     new webpack.ProvidePlugin({
       // make fetch available
-      jQuery: 'jquery',
       fetch: 'exports?self.fetch!whatwg-fetch',
     }),
 
@@ -76,7 +75,7 @@ module.exports = (options) => ({
       '.jsx',
       '.react.js',
     ],
-    packageMains: [
+    mainFields: [
       'jsnext:main',
       'main',
     ],

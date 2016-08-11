@@ -8,7 +8,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
-import { getHooks } from 'utils/hooks';
+import { getAsyncInjectors } from 'utils/asyncInjectors';
 import globalSagas from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -38,7 +38,7 @@ export default function configureStore(initialState = {}, history) {
   store.runSaga = sagaMiddleware.run;
 
   //Inject global sagas into application.
-  const { injectSagas } = getHooks(store);
+  const { injectSagas } = getAsyncInjectors(store);
   injectSagas(...globalSagas);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
