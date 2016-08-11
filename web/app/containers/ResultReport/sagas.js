@@ -37,11 +37,11 @@ function* watchResultReport() {
 
     while (true) {             
         console.debug("Waiting for FETCH_REPORT event");
-        //yield take(FETCH_REPORT);
+        yield take(FETCH_REPORT);
 
         //Start to fetch the report and cancel if user changes page.
         yield race([
-            takeLatest(FETCH_REPORT,fetchReportData),
+            call(fetchReportData),
             //call(fetchReportData),
             take(LOCATION_CHANGE)
         ]);

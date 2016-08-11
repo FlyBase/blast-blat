@@ -37,9 +37,6 @@ export default function configureStore(initialState = {}, history) {
   // Create hook for async sagas
   store.runSaga = sagaMiddleware.run;
 
-  //Inject global sagas into application.
-  const { injectSagas } = getAsyncInjectors(store);
-  injectSagas(...globalSagas);
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
@@ -54,5 +51,10 @@ export default function configureStore(initialState = {}, history) {
 
   // Initialize it with no other reducers
   store.asyncReducers = {};
+  
+  //Inject global sagas into application.
+  const { injectSagas } = getAsyncInjectors(store);
+  injectSagas(...globalSagas);
+
   return store;
 }

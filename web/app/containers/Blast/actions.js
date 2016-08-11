@@ -10,7 +10,7 @@ import {
   CHANGE_TOOL,
   SUBMIT,
   SUBMIT_OK,
-  SUBMIT_ERR
+  SUBMIT_ERROR
 } from './constants';
 
 export function changeSequence(sequence) {

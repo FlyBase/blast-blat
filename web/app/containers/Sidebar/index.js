@@ -10,7 +10,6 @@ import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router';
 import styles from './styles.css';
 
-import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import { Badge } from 'react-bootstrap';
 import Divider from 'material-ui/Divider';
@@ -40,7 +39,7 @@ export class Sidebar extends Component { // eslint-disable-line react/prefer-sta
                 <Divider />
                 <Link to="/results">
                     <ListItem 
-                            leftIcon={<FontIcon className="material-icons">assessment</FontIcon>}>
+                        leftIcon={<FontIcon className="material-icons">assessment</FontIcon>}>
                         Results
                         <Badge style={{backgroundColor: cyan}} className={styles.resultcount}>{this.props.resultCount}</Badge>
                     </ListItem>

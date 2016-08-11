@@ -1,18 +1,17 @@
 /**
-*
-* Database
-*
-*/
+ *
+ * Database
+ *
+ */
 
 import React, { PropTypes } from 'react';
 import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 
-import styles from './styles.css';
+// import styles from './styles.css';
 
 function Database(props) {
     function handleChange(event, index, value) {
-        console.debug("Database onChange called");
+        console.debug('Database onChange called');
         props.onChange(event, value);
     }
 
@@ -30,8 +29,8 @@ function Database(props) {
 
 Database.propTypes = {
     value: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.number,
+                               PropTypes.string,
+                               PropTypes.number,
     ]),
     onChange: PropTypes.func,
     children: PropTypes.arrayOf(React.PropTypes.element).isRequired

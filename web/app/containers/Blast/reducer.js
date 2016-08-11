@@ -12,7 +12,7 @@ import {
   CHANGE_TOOL,
   SUBMIT,
   SUBMIT_OK,
-  SUBMIT_ERR
+  SUBMIT_ERROR
 } from './constants';
 
 const initialState = fromJS({
@@ -33,7 +33,7 @@ function blastReducer(state = initialState, action) {
         return state.set('tool',action.payload);
     case SUBMIT_OK:
         return state;
-    case SUBMIT_ERR:
+    case SUBMIT_ERROR:
         return state;
     default:
         return state;

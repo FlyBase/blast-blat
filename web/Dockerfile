@@ -1,4 +1,4 @@
-FROM node:6.2
+FROM node:latest
 
 MAINTAINER Josh Goodman <jogoodma@indiana.edu>
 
