@@ -7,6 +7,8 @@ import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import * as storage from 'redux-storage';
+import merger from 'redux-storage-merger-immutablejs';
 
 import globalReducer from 'containers/App/reducer';
 
@@ -42,10 +44,10 @@ function routeReducer(state = routeInitialState, action) {
  * Creates the main reducer with the asynchronously loaded ones
  */
 export default function createReducer(asyncReducers) {
-  return combineReducers({
+  return storage.reducer(combineReducers({
     route: routeReducer,
     language: languageProviderReducer,
     global: globalReducer,
     ...asyncReducers,
-  });
+  }), merger);
 }

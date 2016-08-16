@@ -1,17 +1,19 @@
 /**
-*
-* ResultListItem
-*
-*/
+ *
+ * ResultListItem
+ *
+ */
 
 import React, { PropTypes, Components } from 'react';
 import classNames from 'classnames';
+import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import { red500 as red, blueGrey300 } from 'material-ui/styles/colors';
 import { Link } from 'react-router';
 
 import styles from './styles.css';
 import DeleteResultButton from 'components/DeleteResultButton';
+import { COMPLETED, CREATED, WORKING, FAILED } from 'containers/App/constants';
 
 function ResultListItem(props) {
     const { jobid, name, tool, db, status } = props;
@@ -35,15 +37,15 @@ function ResultListItem(props) {
                 {
                     (() => {
                         switch (status) {
-                        case "__failed__":
-                            return <FontIcon title="Failed" className="material-icons" color={red}>error</FontIcon>;
-                        case "__created__":
-                        case "__working__":
-                            return <FontIcon title="Running" className="fa fa-spinner fa-spin" />;
-                        case "__completed__":
-                            return <FontIcon title="Done" className="material-icons">done</FontIcon>;
-                        default:
-                            return <FontIcon title="Unknown" className="material-icons">sentiment-neutral</FontIcon>;
+                            case FAILED:
+                                return <FontIcon title="Failed" className="material-icons" color={red}>error</FontIcon>;
+                            case CREATED:
+                            case WORKING:
+                                return <FontIcon title="Running" className="fa fa-spinner fa-spin" />;
+                            case COMPLETED:
+                                return <FontIcon title="Done" className="material-icons">done</FontIcon>;
+                            default:
+                                return <FontIcon title="Unknown" className="material-icons">sentiment-neutral</FontIcon>;
                         }
                     })()
                 }
@@ -51,11 +53,17 @@ function ResultListItem(props) {
             <td>{started.toLocaleString()}</td>
             <td>
                 <Link to={'/results/' + jobid}>
-                    <FontIcon title="View" hoverColor={blueGrey300} className={ classNames('material-icons',styles.actions) }>open_in_browser</FontIcon>
+                    <IconButton tooltip="View report" iconClassName="material-icons">
+                        open_in_browser
+                    </IconButton>
                 </Link>
-                <FontIcon title="Edit & Run" hoverColor={blueGrey300} className={ classNames('material-icons',styles.actions) }>edit</FontIcon>
+                <IconButton tooltip="Edit & run" iconClassName="material-icons">
+                    edit
+                </IconButton>
                 <DeleteResultButton onDelete={() => handleDelete(jobid,result_tool)}>
-                    <FontIcon title="Delete" hoverColor={blueGrey300} className={ classNames('material-icons',styles.actions) }>delete</FontIcon>
+                    <IconButton tooltip="Delete" iconClassName="material-icons">
+                        delete
+                    </IconButton>
                 </DeleteResultButton>
             </td>
         </tr>

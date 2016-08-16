@@ -34,8 +34,9 @@ function Sequence(props) {
         <div>
             <TextField
                 inputStyle={textStyle.sequence}
-                hintText="Enter sequence here..."
+                hintText="Enter your DNA or protein sequence."
                 floatingLabelText="Sequence"
+                floatingLabelFixed={true}
                 multiLine={true}
                 fullWidth={true}
                 rows={6}

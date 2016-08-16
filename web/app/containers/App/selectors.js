@@ -22,12 +22,26 @@ const selectBlatResults = () => createSelector(
     (results) => results.blat
 );
 
+const selectJoinedResults = () => createSelector(
+    selectBlastResults(),
+    selectBlatResults(),
+    (blast, blat) => [...blast, ...blat]
+);
+
 const selectResultCount = () => createSelector(
     selectBlastResults(),
     selectBlatResults(),
     (x, y) => x.length + y.length
 );
 
+const selectStatuses = () => createSelector(
+    selectJoinedResults(),
+    (allResults) => {
+        allResults.map((result) => {
+            return result.status
+        });
+    }
+);
 
 // selectLocationState expects a plain JS object for the routing state
 const selectLocationState = () => {
@@ -53,5 +67,6 @@ export {
     selectResults,
     selectBlastResults,
     selectBlatResults,
-    selectResultCount
+    selectResultCount,
+    selectJoinedResults,
 };

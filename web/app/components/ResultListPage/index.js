@@ -68,11 +68,11 @@ function ResultListPage(props) {
                                     <th>Database</th>
                                     <th>Status</th>
                                     <th>Date</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            {props.items.sort((a, b) => { return a - b; }).map((item) => {
+                            {props.items.sort((a, b) => { return b.started - a.started; }).map((item) => {
                                 return (
                                     <ResultListItem key={item.jobid} {...item} onDeleteResult={props.onDeleteResult}/>
                                 );
