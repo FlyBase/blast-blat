@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
         libsereal-decoder-perl \
         libsereal-encoder-perl \
         libcapture-tiny-perl \
+        libpath-tiny-perl \
+        libjson-xs-perl \
         libredis-perl
 
 RUN cpanm Redis::JobQueue

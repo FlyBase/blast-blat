@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
         libdatetime-perl \
         libtrycatch-perl \
         libpath-tiny-perl \
+        libcapture-tiny-perl \
         libredis-perl \
         cpanminus \
         gcc \

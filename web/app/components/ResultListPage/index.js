@@ -9,6 +9,7 @@ import { Row, Col, Image, Table } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import Paper from 'material-ui/Paper';
+import IconButton from 'material-ui/IconButton';
 import { grey400 } from 'material-ui/styles/colors';
 
 import ResultListItem from 'components/ResultListItem';
@@ -58,6 +59,13 @@ function ResultListPage(props) {
         return (
             <div className={styles.top}>
                 {renderNoResult()}
+                <Row>
+                    <Col mdOffset={10} md={2}>
+                        <IconButton tooltip="Delete all" iconClassName="material-icons">
+                            delete_sweep
+                        </IconButton>
+                    </Col>
+                </Row>
                 <Row>
                     <Col md={12}>
                         <Table responsive hover>

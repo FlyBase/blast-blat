@@ -8,9 +8,9 @@ export function* getResultListWatcher() {
     let delayTime = 20000;
 
     while (true) {
-        //Delay for a bit, then reload the result list.
-        yield call(delay, delayTime);
+        //Reload the result list then delay for a bit.
         yield put(loadResults());
+        yield call(delay, delayTime);
     }
 }
 

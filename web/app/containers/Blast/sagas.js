@@ -12,7 +12,7 @@ import { request } from 'utils/Api'
 
 export function* submitBlast() {
     const blast = yield select(selectBlastForApi());
-    const url   = '/api/blast/submit/' + blast.tool;
+    const url   = '/api/blast/submit/' + encodeURIComponent(blast.tool);
 
     console.debug("Sending off BLAST job");
     const resp = yield call(request, url, blast);

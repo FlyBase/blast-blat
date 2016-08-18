@@ -24,14 +24,16 @@ export function fetchReport(jobid) {
     };
 }
 
-export function fetchReportOk() {
+export function fetchReportOk(job) {
     return {
         type: FETCH_REPORT_OK,
+        payload: job
     };
 }
 
-export function fetchReportError() {
+export function fetchReportError(error) {
     return {
         type: FETCH_REPORT_ERROR,
+        payload: error
     };
 }

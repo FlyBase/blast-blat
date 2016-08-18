@@ -10,6 +10,9 @@ import selectResultReport from './selectors';
 
 import { fetchReport } from './actions';
 
+import ReportLoading from 'components/ReportLoading';
+import BlastReport from 'components/BlastReport';
+
 export class ResultReport extends Component { // eslint-disable-line react/prefer-stateless-function
 
     componentDidMount() {
@@ -18,11 +21,12 @@ export class ResultReport extends Component { // eslint-disable-line react/prefe
     }
 
     render() {
-        const { jobid } = this.props.params;
+        console.debug("Rendering ResultReport");
+        const report = this.props.isReady ? <BlastReport {...this.props} /> : <ReportLoading />;
 
         return (
             <div>
-            jobID is { jobid }
+                {report}
             </div>
         );
     }

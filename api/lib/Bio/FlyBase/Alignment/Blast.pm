@@ -7,6 +7,7 @@ use Data::Dumper;
 use JSON::Schema;
 use Digest::SHA qw(sha256_hex);
 use TryCatch;
+use Capture::Tiny qw(capture);
 use Bio::FlyBase::Api::Response;
 
 use Redis::JobQueue;
@@ -14,6 +15,7 @@ use Redis::JobQueue::Job qw(
     STATUS_CREATED
     STATUS_WORKING
     STATUS_COMPLETED
+    STATUS_FAILED
 );
 
 prefix '/blast';
@@ -91,10 +93,17 @@ post qr{/submit/(blastn|blastp|blastx|tblastn|tblastx)} => sub {
             );
             my $fasta_fh = $fasta->filehandle('>');
 
-            my $i=0;
+            my $i=1;
             for my $seq (@{$h->{query}}) {
-                say $fasta_fh '>no query name specified' unless $seq =~ /^>/;
+                my $query_id = "Query_$i";
+                if ($seq =~ /^>/) {
+                    $seq =~ s/^>/>$query_id /;
+                }
+                else {
+                    say $fasta_fh ">$query_id";
+                }
                 say $fasta_fh $seq;
+                $i++;
             }
 
             close $fasta_fh;
@@ -166,13 +175,19 @@ any '/job/list' => sub {
 #For now, we are just sending the raw pairwise text back.
 any '/job/results/:jobid' => sub {
     my $jobid = params->{jobid};
+    my $format = params->{format} // 0;
     my $resp  = Bio::FlyBase::Api::Response->new( api_version => '1.0', query_url => (request->uri_base . request->uri));
 
     my $jobids = session('jobids');
     if (exists $jobids->{$jobid}) {
         my $data = $jq->get_job_data($jobid);
         my $file = path($data->{workload}{output});
-        my $blast_report = path($file)->slurp_utf8;
+        my $blast_report;
+
+        if ($data->{status} eq STATUS_COMPLETED || $data->{status} eq STATUS_FAILED) {
+            $blast_report = blast_formatter($file,$format);
+        }
+
         $resp->add_result({
                 status    => $data->{status},
                 jobid     => $jobid,
@@ -182,7 +197,7 @@ any '/job/results/:jobid' => sub {
                 name      => $data->{workload}{name},
                 tool      => $data->{workload}{tool},
                 db        => $data->{workload}{db},
-                blast     => $blast_report
+                report    => $blast_report
             });
     }
 
@@ -229,6 +244,20 @@ any qr{.*} => sub {
     status 'not_found';
     return { error => "Service not found" };
 };
+
+sub blast_formatter {
+    my $file = shift;
+    my $output_format = shift // 0;
+
+    my $cmd = 'blast_formatter';
+    my @args = ('-archive',$file,'-outfmt',$output_format);
+
+    my ($stdout, $stderr, $exit) = capture {
+        system( $cmd, @args );
+    };
+    error($stderr) unless $exit == 0;
+    return $stdout;
+}
 
 
 1;

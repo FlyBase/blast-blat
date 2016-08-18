@@ -27,7 +27,8 @@ services:
         image: jbrowse/gmod-jbrowse
         restart: always
         volumes:
-            - jbrowse_data:/data
+            - jbrowse:/jbrowse
+            - jbrowse_data:/jbrowse/data
 
     web:
         build: web
@@ -43,7 +44,6 @@ services:
             #- ./db/secrets.env
         volumes:
             - ./api:/app
-            - jbrowse_data:/jbrowse
             - results:/results
             - ./data/indices:/indices
             - ./data/fasta:/fasta
@@ -67,8 +67,11 @@ services:
             - results:/results
             - ./data/indices:/indices
             - ./data/fasta:/fasta
+            - jbrowse:/jbrowse
+            - jbrowse_data:/jbrowse/data
 
 volumes:
+    jbrowse:
     jbrowse_data:
     results:
     redis_data:

@@ -13,7 +13,7 @@ export class Blat extends React.Component { // eslint-disable-line react/prefer-
   render() {
     return (
       <div className={styles.blat}>
-      This is Blat container !
+      This is the Blat container !
       </div>
     );
   }

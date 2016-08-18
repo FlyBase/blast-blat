@@ -47,7 +47,22 @@ export function fetchResults() {
 }
 
 export function deleteResult(id) {
-    return fetch('/api/blast/job/delete/' + id, {
+    return fetch('/api/blast/job/delete/' + encodeURIComponent(id), {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then( (data) =>  ( {data} ))
+    .catch( (err) => ( {err} ));
+}
+
+export function fetchReport(id) {
+    return fetch('/api/blast/job/results/' + encodeURIComponent(id), {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
