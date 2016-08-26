@@ -174,9 +174,9 @@ any '/job/list' => sub {
 #of the BLAST report for viewing.
 #For now, we are just sending the raw pairwise text back.
 any '/job/results/:jobid' => sub {
-    my $jobid = params->{jobid};
+    my $jobid  = params->{jobid};
     my $format = params->{format} // 0;
-    my $resp  = Bio::FlyBase::Api::Response->new( api_version => '1.0', query_url => (request->uri_base . request->uri));
+    my $resp   = Bio::FlyBase::Api::Response->new( api_version => '1.0', query_url => (request->uri_base . request->uri));
 
     my $jobids = session('jobids');
     if (exists $jobids->{$jobid}) {
@@ -184,8 +184,17 @@ any '/job/results/:jobid' => sub {
         my $file = path($data->{workload}{output});
         my $blast_report;
 
-        if ($data->{status} eq STATUS_COMPLETED || $data->{status} eq STATUS_FAILED) {
-            $blast_report = blast_formatter($file,$format);
+        if ($data->{status} eq STATUS_COMPLETED) {
+            # If the format requested is JSON, use the already prepared file.
+            if ($format == 15) {
+                my $json_file = $file;
+                $json_file =~ s/\.asn$/\.json/;
+                $blast_report  = path($json_file)->slurp_utf8;
+            }
+            # Otherwise run blast_formatter on the ASN.1 format.
+            else {
+                $blast_report = blast_formatter($file,$format);
+            }
         }
 
         $resp->add_result({

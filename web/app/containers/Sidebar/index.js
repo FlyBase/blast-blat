@@ -14,7 +14,7 @@ import FontIcon from 'material-ui/FontIcon';
 import { Badge } from 'react-bootstrap';
 import Divider from 'material-ui/Divider';
 import {List, ListItem} from 'material-ui/List';
-import { cyan600 as cyan } from 'material-ui/styles/colors';
+import { cyan600 as cyan, blue900 } from 'material-ui/styles/colors';
 
 import { selectResultCount } from 'containers/App/selectors';
 import { loadResults } from 'containers/App/actions';
