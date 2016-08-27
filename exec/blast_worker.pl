@@ -43,7 +43,7 @@ try {
                 make_blastdb($jq,$job);
                 run_blast($jq,$job);
                 my $json = format_results($jq,$job);
-                prepare_jbrowse($jq,$job,$json);
+                #prepare_jbrowse($jq,$job,$json);
 
                 $job->status(STATUS_COMPLETED);
                 $jq->update_job($job);
