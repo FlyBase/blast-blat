@@ -1,0 +1,9 @@
+.hspAlignment { /* stylelint-ignore */
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px
+}
+
+.row {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}

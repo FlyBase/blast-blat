@@ -62,7 +62,8 @@ export function deleteResult(id) {
 }
 
 export function fetchReport(id) {
-    return fetch('/api/blast/job/results/' + encodeURIComponent(id), {
+    // 15 is JSON format.
+    return fetch('/api/blast/job/results/' + encodeURIComponent(id) + '?format=15', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',

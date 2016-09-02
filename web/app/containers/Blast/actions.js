@@ -9,6 +9,9 @@ import {
   CHANGE_DATABASE,
   CHANGE_TOOL,
   CHANGE_NAME,
+  CHANGE_EVALUE,
+  ADD_SPECIES,
+  REMOVE_SPECIES,
   RESET,
   SUBMIT,
   SUBMIT_OK,
@@ -40,6 +43,27 @@ export function changeName(name) {
     return {
         type: CHANGE_NAME,
         payload: name
+    };
+}
+
+export function changeEvalue(evalue) {
+    return {
+        type: CHANGE_EVALUE,
+        payload: evalue
+    };
+}
+
+export function addSpecies(species) {
+    return {
+        type: ADD_SPECIES,
+        payload: species
+    };
+}
+
+export function removeSpecies(species) {
+    return {
+        type: REMOVE_SPECIES,
+        payload: species
     };
 }
 

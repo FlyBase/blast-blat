@@ -4,6 +4,7 @@ use Dancer2 appname => 'Bio::FlyBase::Alignment';
 
 use Path::Tiny qw(tempfile path);
 use Data::Dumper;
+use JSON;
 use JSON::Schema;
 use Digest::SHA qw(sha256_hex);
 use TryCatch;
@@ -189,7 +190,7 @@ any '/job/results/:jobid' => sub {
             if ($format == 15) {
                 my $json_file = $file;
                 $json_file =~ s/\.asn$/\.json/;
-                $blast_report  = path($json_file)->slurp_utf8;
+                $blast_report  = decode_json(path($json_file)->slurp_utf8);
             }
             # Otherwise run blast_formatter on the ASN.1 format.
             else {

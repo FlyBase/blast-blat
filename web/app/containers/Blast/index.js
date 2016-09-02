@@ -55,6 +55,7 @@ export class Blast extends React.Component { // eslint-disable-line react/prefer
                     </Col>
                 </Row>
                 <form>
+                    <fieldset>
                     <Row>
                         <Col className="form-group" md={6} sm={10} xs={12}>
                             <Name value={this.props.name} onChange={this.props.onChangeName} />
@@ -70,7 +71,7 @@ export class Blast extends React.Component { // eslint-disable-line react/prefer
                         </Col>
                     </Row>
                     <Row>
-                        <Col className="form-group" md={6} sm={10} xs={12}>
+                        <Col className="form-group" md={8} sm={10} xs={12}>
                             <Program value={this.props.tool}
                                 onChange={this.props.onChangeTool}>
                                 <MenuItem style={btnStyleReset} value="blastn" primaryText="Nucleotide to nucleotide (blastn)" />
@@ -96,6 +97,7 @@ export class Blast extends React.Component { // eslint-disable-line react/prefer
                             />
                         </Col>
                     </Row>
+                </fieldset>
                 </form>
             </div>
         );

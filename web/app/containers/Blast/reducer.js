@@ -11,6 +11,9 @@ import {
   CHANGE_DATABASE,
   CHANGE_TOOL,
   CHANGE_NAME,
+  CHANGE_EVALUE,
+  ADD_SPECIES,
+  REMOVE_SPECIES,
   RESET,
   SUBMIT,
   SUBMIT_OK,
@@ -22,6 +25,8 @@ const initialState = fromJS({
     database: 'scaffold',
     tool: 'blastn',
     name: '',
+    evalue: 10,
+    species: {},
 });
 
 
@@ -35,6 +40,12 @@ function blastReducer(state = initialState, action) {
             return state.set('tool',action.payload);
         case CHANGE_NAME:
             return state.set('name',action.payload);
+        case CHANGE_EVALUE:
+            return state.set('evalue',action.payload);
+        case ADD_SPECIES:
+            return state;
+        case REMOVE_SPECIES:
+            return state;
         case RESET:
             return initialState;
         case SUBMIT_OK:

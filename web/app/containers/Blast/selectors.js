@@ -17,6 +17,7 @@ const selectBlastForApi = () => createSelector(
           db: [blast.get('database')],
           tool: blast.get('tool'),
           name: blast.get('name'),
+          evalue: blast.get('name'),
       }
   )
 );
@@ -40,6 +41,12 @@ const selectName = () => createSelector(
   selectBlast(),
   (blast) => blast.get('name')
 );
+
+const selectEvalue = () => createSelector(
+  selectBlast(),
+  (blast) => blast.get('evalue')
+);
+
 export default selectBlast;
 
 export {
@@ -47,5 +54,6 @@ export {
   selectTool,
   selectDatabase,
   selectName,
-  selectBlastForApi
+  selectBlastForApi,
+  selectEvalue,
 };
