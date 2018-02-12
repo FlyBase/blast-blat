@@ -221,7 +221,6 @@
     "redux-storage-merger-immutablejs": "^1.0.3",
     "reselect": "2.5.3",
     "sanitize.css": "4.1.0",
-    "sequence-viewer": "^0.2.18",
     "transit-immutable-js": "^0.6.0",
     "transit-js": "^0.8.846",
     "warning": "^3.0.0",
