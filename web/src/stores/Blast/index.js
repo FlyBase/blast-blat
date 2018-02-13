@@ -28,11 +28,10 @@ const Blast = types.model("BlastStore", {
   get isDone() {
     return self.status === COMPLETED || self.status === FAILED;
   }
-})).actions(self => {
-  function setStatus(status) {
+})).actions(self => ({
+  setStatus: function (status) {
     self.status = status;
   }
-  return { setStatus };
-});
+}));
 
 export default Blast;
