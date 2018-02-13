@@ -42,8 +42,10 @@ const RootStore = types.model("RootStore", {
   deleteResult: flow(function* deleteResult(id) {
     try {
       // This will block execution until the fetchResults() returns data.
-      yield deleteResult(id);
-      self.blast
+      yield Api.deleteResult(id);
+      // Remove the BLAST job locally.
+      const idx = self.blast.findIndex((e) => e.jobid === id);
+      self.blast.splice(idx,1);
     } catch (error) {
       console.error("Failed to fetch results", error);
       self.state = "error";
