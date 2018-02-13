@@ -22,4 +22,4 @@ const RootStore = types.model("RootStore", {
   return { submitBlast };
 });
 
-export default RootStore.create({});
+export default RootStore;

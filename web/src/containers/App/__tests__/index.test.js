@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../';
 
-import store from '../../../stores';
+import RootStore from '../../../stores';
+
+const store = RootStore.create({});
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

@@ -19,6 +19,7 @@ const Blast = types.model("BlastStore", {
   error: '',
   evalue: 10,
   id: types.optional(types.identifier(types.string),v4()),
+  jobid: types.optional(types.string,''),
   name: types.string,
   sequence: types.string,
   species: types.optional(types.array(types.string),['dmel']),
